@@ -2,12 +2,11 @@ package com.vikas.dtu.safetyfirst2;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,7 +27,8 @@ public class FaqActivity extends AppCompatActivity {
         list = (ListView) findViewById(R.id.listview);
         list.setAdapter(new CustAdapter(this,10000));
 
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /////////////////////////////REMOVED CODE /////////////////////////////
+        /*list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Toast.makeText(MainActivity.this, "This is position " + position, Toast.LENGTH_SHORT).show();
@@ -52,7 +52,9 @@ public class FaqActivity extends AppCompatActivity {
                 list.setSelectionFromTop(lastPos,topOffset);
                 prevClickedPosition = position;
             }
-        });
+        });*/
+
+        ////////////////////REMOVED CODE////////////////////////
     }
 }
 
@@ -80,12 +82,15 @@ class CustAdapter extends BaseAdapter {
         String[] questions = res.getStringArray(R.array.faq_ques);
         String[] answers = res.getStringArray(R.array.faq_answers);
         for(int i=0;i<questions.length;i++){
-            if(i==position){
-                list.add(new FAQs(questions[i]," --> " + answers[i]));
-            }
-            else{
+            //////////////////CHANGED CODE ///////////////////////////
+            //if(i==position){
+            list.add(new FAQs("Question: "+questions[i],"Answer: " + answers[i]));
+            //}
+            /*else{
                 list.add(new FAQs(questions[i],""));
-            }
+            }*/
+
+            ////////////////////CHANGED CODE ///////////////////////////
         }
     }
     @Override

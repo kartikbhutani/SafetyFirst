@@ -75,7 +75,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="@dimen/md_keylines"
-                android:background="@color/blue_grey_700"
+                android:background="@color/cardview_shadow_start_color"
                 android:text="B"
                 android:textColor="@color/white" />
 
@@ -84,7 +84,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="@dimen/md_keylines"
-                android:background="@color/blue_grey_700"
+                android:background="@color/cardview_shadow_start_color"
                 android:text="I"
                 android:textColor="@color/white" />
 
@@ -93,32 +93,27 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="@dimen/md_keylines"
-                android:background="@color/blue_grey_700"
+                android:background="@color/cardview_shadow_start_color"
                 android:text="U"
                 android:textColor="@color/white" />
         </LinearLayout>
 
-        <com.commonsware.cwac.richedit.RichEditText
+        <jp.wasabeef.richeditor.RichEditor
             android:id="@+id/editor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/md_keylines"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="@dimen/md_keylines"
-            android:background="@drawable/edit_text_style"
-            android:elevation="@dimen/md_keylines"
-            android:gravity="center"
-            android:hint="@string/write_your_post"
-            android:inputType="textMultiLine"
-            android:lines="10"
-            android:maxLines="10"
-            android:padding="@dimen/md_keylines"
-            android:scrollHorizontally="false">
-
-            <requestFocus/>
-
-        </com.commonsware.cwac.richedit.RichEditText>
+            android:layout_below="@+id/btn_enter"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="7dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="8dp"
+            android:layout_width="300dp"
+            android:foregroundGravity="center"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="10dp"
+            android:layout_height="230dp"
+            android:nestedScrollingEnabled="false" />
 
         <Button
             android:id="@+id/button_post_comment"

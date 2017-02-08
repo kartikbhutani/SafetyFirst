@@ -1,22 +1,32 @@
 package com.vikas.dtu.safetyfirst2.mKnowIt;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.vikas.dtu.safetyfirst2.R;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -24,27 +34,62 @@ import java.util.List;
 
 public class KnowItMain extends AppCompatActivity {
 
-    ListView myList;
+    GridView myList;
+    private TextView mTitle;
+    private Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.know_it_main);
 
-        myList = (ListView) findViewById(R.id.my_list);
+
+        myList = (GridView)findViewById(R.id.my_list);
         myList.setAdapter(new FirstCustAdapter(this));
         myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            //--------------------------------Code changed----------------------------------
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(KnowItMain.this, KnowItSecond.class);
-                intent.putExtra(KnowItSecond.POSITION, i);
-                startActivity(intent);
+            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+
+                Cards clicked_card= (Cards) adapterView.getItemAtPosition(i);
+                String clicked_title = clicked_card.getTitle();
+                final Dialog openDialog = new Dialog(context);
+                openDialog.setContentView(R.layout.custom_dialog_box);
+                mTitle = (TextView)openDialog.findViewById(R.id.title);
+                mTitle.setText(clicked_title);
+                CardView info = (CardView)openDialog.findViewById(R.id.info_icon);
+                CardView types = (CardView)openDialog.findViewById(R.id.types_icon);
+                openDialog.setCanceledOnTouchOutside(true);
+                info.setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(KnowItMain.this, KnowItSecond.class);
+                                intent.putExtra(KnowItSecond.POSITION, i);
+                                startActivity(intent);
+                            }
+                        }
+                );
+
+                types.setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(KnowItMain.this, KnowItThird.class);
+                                intent.putExtra(KnowItThird.POSITION, i);
+                                startActivity(intent);
+                            }
+                        }
+                );
+                openDialog.show();
             }
         });
 
     }
-}
 
+
+}
+//---------------------------------------------------------------------------------------------
 class Cards{
     public String title;
     public Drawable image;
@@ -52,6 +97,10 @@ class Cards{
     Cards(String title, Drawable image) {
         this.title = title;
         this.image = image;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }
 
@@ -126,4 +175,6 @@ class FirstCustAdapter extends BaseAdapter {
 
         return row;
     }
+
 }
+

@@ -25,4 +25,14 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
 
+    <TextView
+        android:text="You've not posted any question yet."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_my_posts"
+        android:textSize="18sp"
+        android:textColor="#bb160e"
+        android:layout_gravity="center"
+        android:visibility="invisible" />
+
 </FrameLayout>

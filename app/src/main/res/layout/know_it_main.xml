@@ -3,23 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_know_it_main"
     android:layout_width="match_parent"
+    android:background="#eff7ff"
     android:layout_height="match_parent"
     android:paddingBottom="1dp"
     android:paddingTop="1dp"
     android:paddingLeft="1dp"
     android:paddingRight="1dp"
-    android:background="@color/background"
     tools:context="com.vikas.dtu.safetyfirst2.mKnowIt.KnowItMain">
-    <ListView
+
+
+    <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:id="@+id/my_list"
+        android:numColumns="2"
         android:divider="@null"
         android:fadeScrollbars="false"
         android:scrollbarThumbVertical="@drawable/custom_scrollbar"
-        android:scrollbarSize="3dp" />
+        android:scrollbarSize="3dp"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:horizontalSpacing="-6.5dp"
+        android:gravity="center_horizontal"
+        android:verticalSpacing="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" />
 
 </RelativeLayout>

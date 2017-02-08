@@ -10,10 +10,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.ValueEventListener;
 import com.vikas.dtu.safetyfirst2.R;
 import com.vikas.dtu.safetyfirst2.mData.Post;
 import com.vikas.dtu.safetyfirst2.mDiscussion.PostDetailActivity;
@@ -35,6 +38,9 @@ import static com.vikas.dtu.safetyfirst2.mUtils.FirebaseUtil.getCurrentUserId;
 public abstract class PostListFragment extends Fragment {
 
     private static final String TAG = "NewsListFragment";
+
+    private TextView myPosts;
+    private ProgressBar progressBar;
 
     // [START define_database_reference]
     private DatabaseReference mDatabase;
@@ -79,6 +85,7 @@ public abstract class PostListFragment extends Fragment {
 
         // Set up FirebaseRecyclerAdapter with the Query
         Query postsQuery = getQuery(mDatabase);
+        Log.d("TAG111","p: " + postsQuery+"");
         mAdapter = new FirebaseRecyclerAdapter<Post, PostViewHolder>(Post.class, R.layout.item_post,
                 PostViewHolder.class, postsQuery) {
             @Override
@@ -151,6 +158,8 @@ public abstract class PostListFragment extends Fragment {
                 });
             }
         };
+
+        Log.d("TAG111","mAdapter: " + mAdapter+"");
         mRecycler.setAdapter(mAdapter);
     }
 
@@ -201,6 +210,35 @@ public abstract class PostListFragment extends Fragment {
         return FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
 
-    public abstract Query getQuery(DatabaseReference databaseReference);
+    //    public abstract Query getQuery(DatabaseReference databaseReference);
+    public Query getQuery(DatabaseReference databaseReference){
+        myPosts = (TextView) getView().findViewById(R.id.tv_my_posts);
+        myPosts.setVisibility(View.INVISIBLE);
+        progressBar = (ProgressBar) getView().findViewById(R.id.progressBar);
+        Query tempQuery= databaseReference.child("user-posts").child(getUid());
+        tempQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue(Post.class)==null){
+                    progressBar.setVisibility(View.INVISIBLE);
+                    myPosts.setVisibility(View.VISIBLE);
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        //Log.d("TAG111","t: "+tempQuery+"");
+        if(tempQuery.toString()==null){
+            {
+                progressBar.setVisibility(View.INVISIBLE);
+                myPosts.setVisibility(View.VISIBLE);
+            }
+
+        }
+        /////////////////////////////////////////
+        return tempQuery;
+    }
 }
